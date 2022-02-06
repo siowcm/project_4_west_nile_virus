@@ -104,25 +104,22 @@ Correlations between features and wnv present were generally low (less than 0.2)
 
 ![model_score](assets/model_score.png)
 
-We reiterate that ROC-AUC is the metric for Kaggle datasets and the model with the lowest level of false negatives will be used for production. The model with the best ROC-AUC score is Gradient Boosting Classifier and the model with the lowest level of false negatives is SVC.
+Even though ROC-AUC is the metric for Kaggle datasets, we will consider false negative rates and try to avoid overfitting when selecting our model for production. The best model is the Random Forest Classifier, with one of the lowest false negative rates (41) and a good ROC-AUC score (0.822) that is only marginally lower than the Gradient Boosting Classifier (0.826 without oversampling and 0.827 with oversampling).
 
 ![roc-auc](assets/roc-auc.png)
 
-From the graph, it can be observed that the Gradient Boosting Classifier outperforms almost every other model in terms of ROC-AUC. The SVC is the 2nd best, but its accuracy score is very compromised.
+From the graph, it can be observed that most of the models perform similarly in terms of ROC-AUC. As there is a large class imbalance in our training data, ROC curve might present a overly optimistic view of the model's performance. Precision-Recall curve plot could be a better indicator on model's performance. From the Precision Recall AUC score, Gradient Boosting Classifier (0.21) and Random Forest Classifier (0.20) have the 2 highest scores. Both models performance is far from perfect score of 1 but performed better compared to the baseline score of 0.05.
+
+![precision-recall](assets/precision-recall.png)
 
 ### Feature Importances
 
 ![feature_importances](assets/feature_importances.png)
 
-The Kaggle model, Gradient Boosting Classifier, predicted that these are the most important features;
-- Longitude & Latitude
+The final production model, Random Forest Classifier, predicted that these are the most important features;
 - Daylight
-- Lagged temperature
-- Temperature fluctuation
-- Relative humidity
-- Species pipiens
-
-These results are consistent with what we discovered in EDA.
+- Longitude & Latitude
+- Average and Lagged temperature
 
 # Cost Benefit Analysis
 
